@@ -1311,6 +1311,14 @@ class ReactImageLightbox extends Component {
       if (!this.props[srcType]) {
         return;
       }
+
+      if (typeof this.props[srcType] !== 'string') {
+        images.push(this.props[srcType]);
+
+        return;
+      }
+
+
       const bestImageInfo = this.getBestImageForType(srcType);
 
       const imageStyle = {
@@ -1626,15 +1634,24 @@ ReactImageLightbox.propTypes = {
   //-----------------------------
 
   // Main display image url
-  mainSrc: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
+  mainSrc: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]).isRequired, // eslint-disable-line react/no-unused-prop-types
 
   // Previous display image url (displayed to the left)
   // If left undefined, movePrev actions will not be performed, and the button not displayed
-  prevSrc: PropTypes.string,
+  prevSrc: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]), // eslint-disable-line react/no-unused-prop-types
 
   // Next display image url (displayed to the right)
   // If left undefined, moveNext actions will not be performed, and the button not displayed
-  nextSrc: PropTypes.string,
+  nextSrc: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]), // eslint-disable-line react/no-unused-prop-types
 
   //-----------------------------
   // Image thumbnail sources
